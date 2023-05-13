@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Mon site</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-dC7V4sKwOeb7Vc78a4u4/u73iXOJfK78VQ2TmIlSsEhZjKsZ3l48AP/KPx4uVhX9VyghKj+7Q2tDcr62dJjKwQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">
+      <img src="/static/img/logo_etu.png" width="30" height="30" class="d-inline-block align-top" alt="Logo du site">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item">
+          <a class="nav-link" style="margin-right: 50px;" href="etu_chercher_stage">Rechercher un stage</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="margin-right: 50px;" href="etu_mes_stages">Mes stages</a>
+
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="margin-right: 50px;" href="etu_mon_profil">Mon profil</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="margin-right: 50px;" href="#">Aide?</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="accueil">Déconnexion</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <br>
+  {% if messages %}
+  <div class="alert alert-success">
+    <ul>
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Stage(s) postulé(s)</th>
+        <th>Statut du stage</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for stat in liste_statuts %} {% for nom in liste_noms %} {% for titre in liste_titres %} {% for local in liste_localisations %}
+      <tr>
+        <td>
+          <strong>Titre de l'offre de stage:</strong> {{titre}}
+          <br>
+          <strong>Nom de l'entreprise:</strong> {{nom}}
+          <br>
+          <strong>Localisation:</strong> {{local}}
+        </td>
+        <td>{{stat}}</td>
+      </tr>
+      {% endfor %}
+      {% endfor %}
+      {% endfor %}
+      {% endfor %}
+    </tbody>
+  </table>
+  
+
+
+
+
+</body>
+</html>

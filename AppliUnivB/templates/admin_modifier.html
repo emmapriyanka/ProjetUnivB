@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Mon site</title>
+  <!-- Inclure jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-dC7V4sKwOeb7Vc78a4u4/u73iXOJfK78VQ2TmIlSsEhZjKsZ3l48AP/KPx4uVhX9VyghKj+7Q2tDcr62dJjKwQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+{% if erreur %}
+    <div class="alert alert-danger">{{ erreur }}</div>
+{% endif %}
+
+  <h5 class="text-center">Modifier utilisateur</h5>
+  <div class="border p-3">
+    <form id="modifier-form" action="{% url 'admin_modifier' %}" method="POST">
+      {% csrf_token %}
+       <!-- Ajouter le champ d'ID caché -->
+      <input type="hidden" name="id_user" value="{{ id_user }}">
+      <div class="form-group">
+        <label for="profil">Profil</label>
+        <input type="text" class="form-control" id="profil" name="profil" value="{{ lib_profil }}" readonly>
+      </div>
+      <div class="form-group">
+        <label for="nom">Nom :</label>
+        <input type="text" class="form-control" id="nom" name="nom" value="{{ nom }}">
+      </div>
+      <div class="form-group">
+        <label for="prenom">Prénom :</label>
+        <input type="text" class="form-control" id="prenom" name="prenom" value="{{ prenom }}">
+      </div>
+      <div class="form-group">
+        <label for="email">Email :</label>
+        <input type="text" class="form-control" id="email" name="email" value="{{ email }}">
+      </div>
+      <div class="form-group">
+        <label for="num_tel">Téléphone :</label>
+        <input type="text" class="form-control" id="num_tel" name="num_tel" value="{{ num_tel }}">
+      </div>
+      <div class="form-group">
+        <label for="num_voie">Numéro de la voie :</label>
+        <input type="text" class="form-control" id="num_voie" name="num_voie" value="{{ num_voie }}">
+      </div>
+      <div class="form-group">
+        <label for="nom_voie">Nom de la voie :</label>
+        <input type="text" class="form-control" id="nom_voie" name="nom_voie" value="{{ nom_voie }}">
+      </div>
+      <div class="form-group">
+        <label for="code_postal">Code postal :</label>
+        <input type="text" class="form-control" id="code_postal" name="code_postal" value="{{ code_postal }}">
+      </div>
+      <div class="form-group">
+        <label for="commune">Commune :</label>
+        <input type="text" class="form-control" id="commune" name="commune" value="{{ commune }}">
+      </div>
+      <div class="form-group">
+        <label for="mdp">Mot de passe :</label>
+        <input type="text" class="form-control" id="password" name="password" value="{{ mdp }}">
+      </div>
+      <div class="form-group">
+        <label for="statut">Statut:</label>
+        <select class="form-control" id="statut" name="statut">
+          <option value="A" {% if utilisateur.id_statut.lib_statut == 'A' %}selected{% endif %}>A</option>
+          <option value="D" {% if utilisateur.id_statut.lib_statut == 'D' %}selected{% endif %}>D</option>
+        </select>
+      </div>
+      <button id="modifier-btn">Modifier</button>
+      <button type="button" onclick="window.close()">Annuler</button>
+    </form>
+  </div>
+ 
+</body>
+</html>

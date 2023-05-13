@@ -1,0 +1,32 @@
+/* Styles pour le formulaire de connexion */
+.form-container {
+  background-color: #f8f9fa; /* Couleur de fond neutre */
+  padding: 20px;
+  max-width: 400px; /* Largeur maximale du formulaire */
+  border-radius: 5px; /* Coins arrondis */
+}
+
+.form-container h1 {
+  text-align: center; /* Centre le titre */
+  margin-bottom: 20px; /* Espacement du bas */
+}
+
+/* Styles pour les champs de formulaire */
+.form-group label {
+  font-weight: bold; /* Gras pour les étiquettes */
+}
+
+/* Styles pour le bouton de soumission */
+.btn-primary {
+  width: 100%; /* Largeur maximale */
+}
+
+.footer-bottom {
+  position: fixed;
+  bottom: 1px;
+}
+
+.form-container {
+  border: 1px solid #ccc;
+  padding: 10px;
+}

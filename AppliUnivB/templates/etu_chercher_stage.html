@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Mon site</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-dC7V4sKwOeb7Vc78a4u4/u73iXOJfK78VQ2TmIlSsEhZjKsZ3l48AP/KPx4uVhX9VyghKj+7Q2tDcr62dJjKwQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">
+      <img src="/static/img/logo_etu.png" width="30" height="30" class="d-inline-block align-top" alt="Logo du site">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item">
+          <a class="nav-link" style="margin-right: 50px;" href="etu_chercher_stage">Rechercher un stage</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="margin-right: 50px;" href="etu_mes_stages">Mes stages</a>
+
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="margin-right: 50px;" href="etu_mon_profil">Mon profil</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="margin-right: 50px;" href="#">Aide?</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="accueil">Déconnexion</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  {% if erreur %}
+    <div class="alert alert-danger">{{ erreur }}</div>
+{% endif %}
+  {% if messages %}
+  <div class="alert alert-success">
+    <ul>
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}
+  <div class="container mt-3">
+    <form class="row g-2" id="modifier-form" action="{% url 'etu_chercher_stage' %}" method="POST">
+      {% csrf_token %}
+      <div class="col-auto">
+        <label for="domaine" class="form-label">Domaines:</label>
+        <select id="domaine" class="form-select" name="domaine">
+          {% for domaine in domaines %}
+          <option value="{{ domaine.id_dom }}" {% if id_dom == domaine.id_dom %}selected{% endif %}>{{ domaine.lib_dom }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-auto">
+        <label for="secteur" class="form-label">Secteurs:</label>
+        <select id="secteur" class="form-select">
+          {% for secteur in secteurs %}
+          <option value="{{ secteur.id_sec }}" {% if id_sec == secteur.id_sec %}selected{% endif %}>{{ secteur.lib_sec }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-auto">
+        <label for="metier" class="form-label">Metiers:</label>
+        <select id="metier" class="form-select">
+          {% for metier in metiers %}
+          <option value="{{ metier.id_metier }}" {% if id_metier == metier.id_metier %}selected{% endif %}>{{ metier.lib_metier }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Rechercher</button>
+      </div>
+    </form>
+  </div>
+<br> 
+<br>
+  <div style="overflow-y: auto;  max-height: 450px" >
+    <form method="POST" action="{% url 'admin_valider_offre' %}">
+      {% csrf_token %}
+      <!-- Ajouter le champ d'ID caché -->
+      <input type="hidden" name="id_offre" value="{{ offre_stage.id_offre }}">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Offres de stage</th>
+          <th>Consulter pour postuler</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for offre_stage in offres_stage %} {% for nom in noms_utilisateurs %}{% for desc in desc_entreprises %} {% for email_ent in email_utilisateurs %} {% for lib_dipl in lib_diplomes %} 
+        <tr>
+          <td>
+            <strong>Titre de l'offre de stage:</strong> {{ offre_stage.titre_offre}}
+            <br>
+            <strong>Nom de l'entreprise :</strong> {{ nom }}
+            <br>
+            <strong>Localisation:</strong> {{ offre_stage.localisation}}
+            <br>
+            <strong>Diplome:</strong> {{ lib_dipl}}
+          </td>
+          <td>
+            <a href="#" onclick="window.open('{% url 'etu_postuler_stage' %}?nom_ent={{nom}}&id_user_etu={{ id_user_etu }}&desc_ent={{desc}}&email={{email_ent}}&titre_offre={{offre_stage.titre_offre}}&localisation={{offre_stage.localisation}}&description={{offre_stage.desc_stage}}&date_pub={{offre_stage.date_pub}}&duree={{offre_stage.duree}}&date_debut={{offre_stage.date_debut}}&id_offre={{offre_stage.id_offre}}', 'popup', 'height=1100,width=900'); return false;">Consulter pour postuler</a>
+          </td>
+        </tr>
+        {% endfor %}
+        {% endfor %}
+        {% endfor %}
+        {% endfor %}
+        {% endfor %}
+      </tbody>
+    </table>
+  </form>
+  </div>
+</body>
+</html>
+<script>
+  $(document).ready(function() {
+    // lorsque l'utilisateur clique sur un lien avec la classe "open-popup"
+    $(".open-popup").click(function(e) {
+      // empêcher le comportement par défaut du lien
+      e.preventDefault();
+      // créer une fenêtre modale
+      var popup = window.open('', 'popup', 'width=600,height=400');
+      // ajouter le contenu de votre détail de l'offre de stage à la fenêtre modale
+      popup.document.write('<h1>Détails de l\'offre de stage</h1>');
+      popup.document.write('<p>Description de l\'offre de stage</p>');
+      // ajouter un curseur si vous le souhaitez
+      popup.document.write('<div class="curseur"></div>');
+      // fermer la fenêtre modale lorsque l'utilisateur clique sur le curseur
+      $(popup.document).on("click", ".curseur", function() {
+        popup.close();
+      });
+    });
+  });
+
+
+  const domaine = document.getElementById('domaine');
+      const secteur = document.getElementById('secteur');
+      const metier = document.getElementById('metier');
+      
+
+      domaine.addEventListener('change', (event) => {
+        const id_dom = event.target.value;
+        sessionStorage.setItem('id_dom', id_dom);
+        window.location.href = `/etu_chercher_stage?domaine=${id_dom}`;
+      });
+
+      secteur.addEventListener('change', (event) => {
+        const id_sec = event.target.value;
+        sessionStorage.setItem('id_sec', id_sec);
+        window.location.href = `/etu_chercher_stage?domaine=${sessionStorage.getItem('id_dom')}&secteur=${id_sec}`;
+      });
+    
+      metier.addEventListener('change', (event) => {
+        const id_metier = event.target.value;
+        sessionStorage.setItem('id_metier', id_metier);
+        window.location.href = `/etu_chercher_stage?domaine=${sessionStorage.getItem('id_dom')}&secteur=${sessionStorage.getItem('id_sec')}&metier=${id_metier}`;
+      });
+    
+      // Récupérer les valeurs stockées dans la session
+
+      const stored_id_dom = sessionStorage.getItem('id_dom');
+      if (stored_id_dom) {
+        domaine.value = stored_id_dom;
+      }
+
+      const stored_id_sec = sessionStorage.getItem('id_sec');
+      if (stored_id_sec) {
+        secteur.value = stored_id_sec;
+      }
+    
+      const stored_id_metier = sessionStorage.getItem('id_metier');
+      if (stored_id_metier) {
+        metier.value = stored_id_metier;
+      }
+
+      // Récupérer les éléments HTML
+    const btnModifier = document.getElementById('btnModifier');
+    const formulaireModifier = document.getElementById('formulaireModifier');
+
+    // Ajouter un écouteur d'événement sur le clic du bouton "Modifier utilisateur"
+    btnModifier.addEventListener('click', () => {
+        formulaireModifier.classList.remove('d-none'); // Afficher le formulaire
+    });
+</script>
+  
+</body>
+</html>

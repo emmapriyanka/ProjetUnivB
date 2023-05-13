@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Accueil - Portail Base de Données Stagiaires Université de Bordeaux</title>
+  <!-- Inclure les fichiers CSS de Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Charger les fichiers statiques -->
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+  {% if erreur %}
+    <div class="alert alert-danger">{{ erreur }}</div>
+  {% endif %}
+  {% if messages %}
+  <div class="alert alert-success">
+    <ul>
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}
+    <!-- Ajouter le champ d'ID caché -->
+  <div class="container d-flex align-items-center justify-content-center vh-100"> <!-- Utiliser des classes pour centrer verticalement et horizontalement -->
+    <div class="form-container"> <!-- Appliquer les styles pour le formulaire de connexion -->
+      <h1 class="text-center mb-4">Bienvenue sur le Portail Base de Données Stagiaires Université de Bordeaux !</h1>
+      <form method="POST" action="{% url 'accueil' %}">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="login">Login:</label>
+          <input type="text" class="form-control" id="login" name="login">
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" class="form-control" id="password" name="password">
+        </div>
+        <button type="submit" class="btn btn-primary">Se connecter</button>
+      </form>
+    </div>
+  </div>
+  <!-- Inclure les fichiers JavaScript de Bootstrap (jQuery et Popper.js) pour les fonctionnalités avancées (optionnel) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <footer class="footer-bottom">
+    <p>© 2023 My Website. All rights reserved.</p>
+  </footer>
+</body>
+</html>
+

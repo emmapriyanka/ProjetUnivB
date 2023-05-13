@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Mon site</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-dC7V4sKwOeb7Vc78a4u4/u73iXOJfK78VQ2TmIlSsEhZjKsZ3l48AP/KPx4uVhX9VyghKj+7Q2tDcr62dJjKwQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">
+      <img src="/static/img/logo_etu.png" width="30" height="30" class="d-inline-block align-top" alt="Logo du site">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item">
+            <a class="nav-link" style="margin-right: 50px;" href="ent_publier_offre">Publier offre</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="margin-right: 50px;" href="ent_consult_cand">Consulter candidat</a>
+
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="margin-right: 50px;" href="ent_mon_profil">Mon profil</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="margin-right: 50px;" href="#">Aide?</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="accueil">Déconnexion</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <br>
+
+  <div style="overflow-y: auto;  max-height: 450px" >
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Offres de stage</th>
+        <th>Liste des candidats ayant postulé</th>
+        <th>Consulter CV/LM</th>
+        <th>Statut</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <strong>Titre de l'offre de stage:</strong> Marketing Digital
+          <br>
+          <strong>Nom de l'entreprise:</strong> ACME Inc.
+          <br>
+          <strong>Localisation:</strong> Paris
+        </td>
+        <td>
+          <span>Jean Hubert</span>
+        </td>
+        <td>
+          <a href="#">Télécharger CV</a><br>
+          <a href="#">Télécharger LM</a>
+        </td>
+        <td>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="statut1" id="accepte1" value="accepte">
+            <label class="form-check-label" for="accepte1">
+              Accepté
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="statut1" id="refuse1" value="refuse">
+            <label class="form-check-label" for="refuse1">
+              Refusé
+            </label>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong>Titre de l'offre de stage:</strong> Marketing Digital
+          <br>
+          <strong>Nom de l'entreprise:</strong> ACME Inc.
+          <br>
+          <strong>Localisation:</strong> Paris
+        </td>
+        <td>
+          <span>Marie Dupuis</span>
+        </td>
+        <td>
+          <a href="#">Télécharger CV</a><br>
+          <a href="#">Télécharger LM</a>
+        </td>
+        <td>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="statut1" id="accepte1" value="accepte">
+            <label class="form-check-label" for="accepte1">
+              Accepté
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="statut1" id="refuse1" value="refuse">
+            <label class="form-check-label" for="refuse1">
+              Refusé
+            </label>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong>Titre de l'offre de stage:</strong> Développeur Web
+          <br>
+          <strong>Nom de l'entreprise:</strong> XYZ Corp.
+          <br>
+          <strong>Localisation:</strong> Lyon
+        </td>
+        <td>
+          <span>Laurent vu</span>
+        </td>
+        <td>
+            <a href="#">Télécharger CV</a><br>
+            <a href="#">Télécharger LM</a>
+        </td>
+        <td>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="statut2" id="accepte2" value="accepte">
+            <label class="form-check-label" for="accepte2">
+              Accepté
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="statut2" id="refuse2" value="refuse">
+            <label class="form-check-label" for="refuse2">
+              Refusé
+            </label>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong>Titre de l'offre de stage:</strong> Développeur Web
+          <br>
+          <strong>Nom de l'entreprise:</strong> XYZ Corp.
+          <br>
+          <strong>Localisation:</strong> Lyon
+        </td>
+        <td>
+          <span>Claude Francois</span>
+        </td>
+        <td>
+            <a href="#">Télécharger CV</a><br>
+            <a href="#">Télécharger LM</a>
+        </td>
+        <td>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="statut2" id="accepte2" value="accepte">
+            <label class="form-check-label" for="accepte2">
+              Accepté
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="statut2" id="refuse2" value="refuse">
+            <label class="form-check-label" for="refuse2">
+              Refusé
+            </label>
+          </div>
+        </td>
+      </tr> 
+    </tbody>
+  </table>
+  <div class="text-center">
+    <button type="submit" class="btn btn-primary mt-3 mx-auto">Envoyer</button>  </div>
+  </div>
+</div>
+</body>
+</html>

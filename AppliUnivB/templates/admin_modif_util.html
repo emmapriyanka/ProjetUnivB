@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Mon site</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-dC7V4sKwOeb7Vc78a4u4/u73iXOJfK78VQ2TmIlSsEhZjKsZ3l48AP/KPx4uVhX9VyghKj+7Q2tDcr62dJjKwQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">
+      <img src="/static/img/logo_etu.png" width="30" height="30" class="d-inline-block align-top" alt="Logo du site">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item">
+            <a class="nav-link" style="margin-right: 50px;" href="admin_creer_util">Créer utilisateur</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="margin-right: 50px;" href="admin_modif_util">Modifier utilisateur</a>
+
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="margin-right: 50px;" href="admin_valider_offre">Valider offre de stage des entreprises</a>
+        <li class="nav-item">
+          <a class="nav-link" style="margin-right: 50px;" href="#">Aide?</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="accueil">Déconnexion</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <br>
+  <h5> Liste des utilisateurs </h5>
+  {% if messages %}
+  <div class="alert alert-success">
+    <ul>
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}
+  <div style="overflow-y: auto; max-height: 450px;">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>Email</th>
+          <th>Téléphone</th>
+          <th>Profil</th>
+          <th>Statut</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for utilisateur in utilisateurs %}
+          <tr>
+            <td>{{ utilisateur.nom }}</td>
+            <td>{{ utilisateur.prenom }}</td>
+            <td>{{ utilisateur.email }}</td>
+            <td>{{ utilisateur.num_tel }}</td>
+            <td>{{ utilisateur.id_profil.lib_profil }}</td>
+            <td>{{ utilisateur.id_statut.lib_statut }}</td>
+            <td><a href="{% url 'admin_modifier' %}?id={{ utilisateur.id_user }}" data-nom="{{ utilisateur.nom }}" data-prenom="{{ utilisateur.prenom }}" data-email="{{ utilisateur.email }}" data-num_tel="{{ utilisateur.num_tel }}" data-num_voie="{{ utilisateur.num_voie }}" data-nom_voie="{{ utilisateur.nom_voie }}" data-code_postal="{{ utilisateur.code_postal }}" data-commune="{{ utilisateur.commune }}" data-mot_de_passe="{{ utilisateur.mot_de_passe }}" data-statut="{{ utilisateur.statut }}" onclick="window.open('{% url 'admin_modifier' %}?id={{ utilisateur.id_user }}', 'Modification Utilisateur', 'height=1100,width=900'); return false;">Modifier</a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+
+<script>
+    // Récupérer les éléments HTML
+    const btnModifier = document.getElementById('btnModifier');
+    const formulaireModifier = document.getElementById('formulaireModifier');
+
+    // Ajouter un écouteur d'événement sur le clic du bouton "Modifier utilisateur"
+    btnModifier.addEventListener('click', () => {
+        formulaireModifier.classList.remove('d-none'); // Afficher le formulaire
+    });
+</script>
+ 
+</body>
+</html>

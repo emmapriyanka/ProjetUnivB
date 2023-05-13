@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Mon site</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-dC7V4sKwOeb7Vc78a4u4/u73iXOJfK78VQ2TmIlSsEhZjKsZ3l48AP/KPx4uVhX9VyghKj+7Q2tDcr62dJjKwQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+ 
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">
+      <img src="/static/img/logo_etu.png" width="30" height="30" class="d-inline-block align-top" alt="Logo du site">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item">
+            <a class="nav-link" style="margin-right: 50px;" href="ent_publier_offre">Publier offre</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="margin-right: 50px;" href="ent_consult_cand">Consulter candidat</a>
+
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="margin-right: 50px;" href="ent_mon_profil">Mon profil</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="margin-right: 50px;" href="#">Aide?</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="accueil">Déconnexion</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  {% if erreur %}
+  <div class="alert alert-danger">{{ erreur }}</div>
+  {% endif %}
+  {% if messages %}
+  <div class="alert alert-success">
+    <ul>
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}
+  <div class="container mt-3">
+    <form class="row g-2">
+      <div class="col-auto">
+        <label for="domaine" class="form-label">Domaines:</label>
+        <select id="domaine" class="form-select" name="domaine">
+          <option value="">Sélectionner un domaine</option>
+          {% for domaine in domaines %}
+          <option value="{{ domaine.id_dom }}" {% if id_dom == domaine.id_dom %}selected{% endif %}>{{ domaine.lib_dom }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-auto">
+        <label for="secteur" class="form-label">Secteurs:</label>      
+        <select id="secteur" class="form-select" name="secteur">
+          <option value="">Sélectionner un secteur</option>
+          {% for secteur in secteurs %}
+          <option value="{{ secteur.id_sec }}" {% if id_sec == secteur.id_sec %}selected{% endif %}>{{ secteur.lib_sec }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-auto">
+        <label for="metier" class="form-label">Metiers:</label>
+        <select id="metier" class="form-select" name="metier">
+          <option value="">Sélectionner un métier</option>
+          {% for metier in metiers %}
+          <option value="{{ metier.id_metier }}" {% if id_metier == metier.id_metier %}selected{% endif %}>{{ metier.lib_metier }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </form>
+  </div>
+    
+    
+    <script>
+      const domaine = document.getElementById('domaine');
+      const secteur = document.getElementById('secteur');
+      const metier = document.getElementById('metier');
+      
+
+      domaine.addEventListener('change', (event) => {
+        const id_dom = event.target.value;
+        sessionStorage.setItem('id_dom', id_dom);
+        window.location.href = `/ent_publier_offre?domaine=${id_dom}`;
+      });
+
+      secteur.addEventListener('change', (event) => {
+        const id_sec = event.target.value;
+        sessionStorage.setItem('id_sec', id_sec);
+        window.location.href = `/ent_publier_offre?domaine=${sessionStorage.getItem('id_dom')}&secteur=${id_sec}`;
+      });
+    
+      metier.addEventListener('change', (event) => {
+        const id_metier = event.target.value;
+        sessionStorage.setItem('id_metier', id_metier);
+        window.location.href = `/ent_publier_offre?domaine=${sessionStorage.getItem('id_dom')}&secteur=${sessionStorage.getItem('id_sec')}&metier=${id_metier}`;
+      });
+    
+      // RÃ©cupÃ©rer les valeurs stockÃ©es dans la session
+
+      const stored_id_dom = sessionStorage.getItem('id_dom');
+      if (stored_id_dom) {
+        domaine.value = stored_id_dom;
+      }
+
+      const stored_id_sec = sessionStorage.getItem('id_sec');
+      if (stored_id_sec) {
+        secteur.value = stored_id_sec;
+      }
+    
+      const stored_id_metier = sessionStorage.getItem('id_metier');
+      if (stored_id_metier) {
+        metier.value = stored_id_metier;
+      }
+      
+    </script>
+  </div> 
+  
+  
+  <br>
+  <div class="col-md-5 mt-5 order-md-1 mx-auto text-center">
+    <div class="border p-3">
+      <form id="form" action="{% url 'ent_publier_offre' %}" method="POST">
+    {% csrf_token %}  
+    <form>
+      <!-- Ajouter le champ d'ID cachÃ© -->
+      <input type="hidden" name="id_user" value="{{ id_user }}">
+      <input type="hidden" name="id_dom" value="{{ domaine.id_dom }}">
+      <input type="hidden" name="id_sec" value="{{ id_sec }}">
+      <input type="hidden" name="id_metier" value="{{ id_metier }}">
+      <input type="hidden" name="id_ent" value="{{ id_ent }}">
+      <input type="hidden" name="code_postal" value="{{ code_postal }}">
+      <input type="hidden" name="commune" value="{{ commune }}">
+      <input type="hidden" name="nom" value="{{ nom }}">
+      <div class="form-group">
+        <label for="titre">Titre de l'offre de stage</label>
+        <input type="text" class="form-control" id="titre" name="titre" value="{{titre}}" >
+      </div>
+      <div class="form-group">
+        <label for="NoEentreprise">Nom de l'entreprise</label>
+        <input type="text" class="form-control" id="nom" value="{{ nom }}" readonly>
+      </div>
+      <div class="form-group">
+        <label for="entreprise">Localisation</label>
+        <input type="text" class="form-control" id="commune" value="{{code_postal}} {{commune}} " readonly>
+      </div>
+      <div class="form-group">
+        <label for="desc_ent">Description de l'entreprise</label>
+        <textarea name="desc_ent" rows="5" id="desc_ent" readonly cols="40">{{ desc_ent }}</textarea>
+      </div>
+      <div class="form-group">
+        <label for="description">Description offre de stage</label>
+        <textarea class="form-control" id="description"  name="description" rows="5">{{ description }}</textarea>
+      </div>    
+      <div class="form-group">
+        <label for="diplome">Niveau d'études souhaité :</label>
+        <select class="form-control" id="diplome" name="diplome">
+          {% for diplome in diplomes %}
+            <option value="{{ diplome.id_dipl }}" {% if id_dipl == diplome.id_dipl  %}selected{% endif %}>{{ diplome.lib_dipl }}</option>
+          {% endfor %}
+        </select> 
+      </div>  
+      <div class="form-group">
+        <label for="date_debut">Date de début</label>
+        <input type="date" class="form-control" id="date_debut" name="date_debut" value="{{date_debut}} ">
+      </div>
+      <div class="form-group">
+        <label for="duree">Durée</label>
+        <div class="input-group">
+          <input type="number" class="form-control" id="duree" name="duree" value="{{duree}} " min="0" step="1">
+          <div class="input-group-append">
+            <span class="input-group-text">mois</span>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary mx-auto d-block">Envoyer l'offre</button>
+    </form>
+  </div>
+</div>
+
+
+
+
+</body>
+</html>

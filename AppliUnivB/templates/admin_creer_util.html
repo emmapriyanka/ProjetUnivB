@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Mon site</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-dC7V4sKwOeb7Vc78a4u4/u73iXOJfK78VQ2TmIlSsEhZjKsZ3l48AP/KPx4uVhX9VyghKj+7Q2tDcr62dJjKwQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+  
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">
+      <img src="/static/img/logo_etu.png" width="30" height="30" class="d-inline-block align-top" alt="Logo du site">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item">
+            <a class="nav-link" style="margin-right: 50px;" href="admin_creer_util">Créer utilisateur</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="margin-right: 50px;" href="admin_modif_util">Modifier utilisateur</a>
+
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="margin-right: 50px;" href="admin_valider_offre">Valider offre de stage des entreprises</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="margin-right: 50px;" href="#">Aide?</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="accueil">Déconnexion</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <br>
+  
+  <div class="col-md-5 mt-5 order-md-1 mx-auto">
+    {% block content %}
+    <h5 class="text-center">Création utilisateur</h5>
+    <div class="border p-3">
+      {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-danger">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  <form method="post">
+    {% csrf_token %}
+        <form>
+            <div class="form-group">
+              <label for="description">Profil :</label>
+              <select class="form-control" id="id_profil" name="id_profil">
+                {% for profil in profils %}
+                  <option value="{{ profil.id_profil }}">{{ profil.lib_profil }}</option>
+                {% endfor %}
+              </select> 
+            </div>
+            <div id="desc_ent_div" style="display:none;">
+              <div class="form-group">
+                  <label for="desc_ent">Description entreprise :</label>
+                  <input type="text" class="form-control" id="desc_ent" name="desc_ent" value="">
+              </div>
+           </div>
+            <div class="form-group">
+              <label for="nom">Nom :</label>
+              <input type="text" class="form-control" id="nom" name="nom" value="">
+            </div>
+            <div class="form-group" id="prenom_div">
+              <label for="prenom">Prénom :</label>
+              <input type="text" class="form-control" id="prenom" name="prenom" value="">
+            </div>
+            <div class="form-group">
+              <label for="email">Email :</label>
+              <input type="text" class="form-control" id="email" name="email" value="">
+            </div>
+            <div class="form-group">
+              <label for="num_tel">Téléphone :</label>
+              <input type="text" class="form-control" id="num_tel" name="num_tel" value="">
+            </div>
+            <div class="form-group">
+              <label for="description">Mot de passe :</label>
+              <input type="text" class="form-control" id="password" name="password" value="">
+            </div>
+            <div class="form-group">
+              <label for="description">Num voie :</label>
+              <input type="text" class="form-control" id="num_voie" name="num_voie" value="">
+            </div>
+            <div class="form-group">
+              <label for="description">Nom voie :</label>
+              <input type="text" class="form-control" id="nom_voie" name="nom_voie" value="">
+            </div>
+            <div class="form-group">
+              <label for="description">Code postal :</label>
+              <input type="text" class="form-control" id="code_postal" name="code_postal" value="">
+            </div>
+            <div class="form-group">
+              <label for="description">Commune :</label>
+              <input type="text" class="form-control" id="commune" name="commune" value="">
+            </div>
+            <button type="submit" class="btn btn-primary">créer</button>
+        </form>
+        <!-- Script pour afficher/masquer le champ "desc_ent" -->
+        <script>
+          $(document).ready(function() {
+            $("#id_profil").change(function() {
+                var selectedOption = $(this).children(":selected");
+                var selectedOptionValue = selectedOption.val();
+                var selectedOptionText = selectedOption.text();
+                if (selectedOptionText === "Entreprise") {
+                    $("#desc_ent_div").show();
+                } else {
+                    $("#desc_ent_div").hide();
+                }
+            });
+        });
+
+        $(document).ready(function() {
+          $("#id_profil").change(function() {
+            var selectedOption = $(this).children(":selected");
+            var selectedOptionText = selectedOption.text();
+            if (selectedOptionText === "Entreprise") {
+              $("#prenom_div").hide();
+            } else {
+              $("#prenom_div").show();
+            }
+          });
+        });
+        </script>
+        {% endblock %}
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    </div>
+  </div>
+</body>
+</html>

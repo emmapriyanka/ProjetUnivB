@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  
+  <script>
+    // Fonction pour fermer la fenêtre
+    function fermerFenetre() {
+      window.close();
+    }
+  </script>
+</head>
+<body>
+  <p>Modification effectuée avec succès</p>
+  
+    <a href="{% url 'admin_modif_util' %}" onclick="fermerFenetre()"><button type="button">Quitter</button></a>
+  
+  <script>
+    // Fonction pour fermer la fenêtre après la suppression
+    function fermerFenetre() {
+      // Envoyer la requête de suppression
+      //document.forms[0].submit();
+      // Fermer la fenêtre
+      window.close();
+    }
+  </script>
+</body>
+</html>
