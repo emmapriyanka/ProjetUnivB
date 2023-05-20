@@ -88,8 +88,6 @@
   <div style="overflow-y: auto;  max-height: 450px" >
     <form method="POST" action="{% url 'admin_valider_offre' %}">
       {% csrf_token %}
-      <!-- Ajouter le champ d'ID caché -->
-      <input type="hidden" name="id_offre" value="{{ offre_stage.id_offre }}">
     <table class="table table-striped">
       <thead>
         <tr>
@@ -98,25 +96,22 @@
         </tr>
       </thead>
       <tbody>
-        {% for offre_stage in offres_stage %} {% for nom in noms_utilisateurs %}{% for desc in desc_entreprises %} {% for email_ent in email_utilisateurs %} {% for lib_dipl in lib_diplomes %} 
+        {% url 'etu_postuler_stage' as postuler_stage_url %}
+        {% for offre_stage in offres_stage %} 
         <tr>
           <td>
             <strong>Titre de l'offre de stage:</strong> {{ offre_stage.titre_offre}}
             <br>
-            <strong>Nom de l'entreprise :</strong> {{ nom }}
+            <strong>Nom de l'entreprise :</strong> {{ offre_stage.id_ent.id_user.nom }}
             <br>
             <strong>Localisation:</strong> {{ offre_stage.localisation}}
             <br>
-            <strong>Diplome:</strong> {{ lib_dipl}}
+            <strong>Diplome:</strong> {{ offre_stage.id_dipl.lib_dipl}}
           </td>
-          <td>
-            <a href="#" onclick="window.open('{% url 'etu_postuler_stage' %}?nom_ent={{nom}}&id_user_etu={{ id_user_etu }}&desc_ent={{desc}}&email={{email_ent}}&titre_offre={{offre_stage.titre_offre}}&localisation={{offre_stage.localisation}}&description={{offre_stage.desc_stage}}&date_pub={{offre_stage.date_pub}}&duree={{offre_stage.duree}}&date_debut={{offre_stage.date_debut}}&id_offre={{offre_stage.id_offre}}', 'popup', 'height=1100,width=900'); return false;">Consulter pour postuler</a>
+          <td>           
+            <a href="#" onclick="window.open('{% url 'etu_postuler_stage' %}?nom_ent={{ offre_stage.id_ent.id_user.nom|urlencode }}&id_user_etu={{ id_user_etu }}&desc_ent={{ offre_stage.id_ent.desc_ent|urlencode }}&email={{ offre_stage.id_ent.id_user.email|urlencode }}&titre_offre={{ offre_stage.titre_offre|urlencode }}&localisation={{ offre_stage.localisation|urlencode }}&description={{ offre_stage.desc_stage|urlencode }}&date_pub={{ offre_stage.date_pub|urlencode }}&duree={{ offre_stage.duree|urlencode }}&date_debut={{ offre_stage.date_debut|urlencode }}&id_offre={{ offre_stage.id_offre|urlencode }}', 'popup', 'height=1100,width=900'); return false;">Consulter pour postuler</a>
           </td>
         </tr>
-        {% endfor %}
-        {% endfor %}
-        {% endfor %}
-        {% endfor %}
         {% endfor %}
       </tbody>
     </table>
