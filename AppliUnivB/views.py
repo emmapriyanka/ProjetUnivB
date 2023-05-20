@@ -111,45 +111,23 @@ def ent_publier_offre(request):
     if request.method == 'POST':
         # Récupérer les valeurs stockées dans la session
         id_dom = request.session.get('id_dom')
-        print("id_dom= ",id_dom)
         id_sec = request.session.get('id_sec')
-        print("id_sec= ",id_sec)
         id_metier = request.session.get('id_metier')
-        print("id_metier= ",id_metier)
         id_user = request.POST.get('id_user')
-        print("id_user= ",id_user)
-       # id_dom = request.POST.get('domaine')
-        #print("id_dom= ",id_dom)
-        #id_sec = request.POST.get('secteur')
-        #print("id_sec= ",id_sec)
-        #id_metier = request.POST.get('metier')
-       # print("id_metier= ",id_metier)
         titre = request.POST.get('titre')
-        print("titre= ",titre)
         id_ent = request.POST.get('id_ent')
-        print("id_ent= ",id_ent)
         nom = request.POST.get('nom')
-        print("nom= ",nom)
         code_postal = request.POST.get('code_postal')
-        print("code_postal= ",code_postal)
         desc_ent = request.POST.get('desc_ent')
-        print("desc_ent= ",desc_ent)
         commune = request.POST.get('commune')
-        print("commune= ",commune)
         description = request.POST.get('description')
-        print("description= ",description)
         id_dipl = request.POST.get('diplome')
-        print("id_dipl= ",id_dipl)
         date_debut = request.POST.get('date_debut')
-        print("date_debut= ",date_debut)
         duree = request.POST.get('duree')
-        print("duree= ",duree)
         #date de publication est la date du jour
-        print("date de publication= ",datetime.now())
         # pas de get sur les champs readonly nom, code_postal, commune, desc_ent
         if not id_dom or not id_sec or not id_metier or not titre or not description or not id_dipl or not date_debut or not duree:
             erreur ="Veuillez remplir tous les champs saisissables"
-            print("erreur= ",erreur)
             context = {
                 'id_user': id_user,
                 'domaine' : id_dom,
@@ -246,8 +224,6 @@ def ent_mon_profil(request):
             return render(request, 'ent_mon_profil.html', context)
         else:
             # update or insert a row in the entreprises table
-            print("id_user= ",id_user)
-            print("desc_ent= ",desc_ent)
             if Entreprises.objects.filter(id_user=id_user).exists():
                 #maj desc_ent dans entreprises
                 entreprise = Entreprises.objects.get(id_user=id_user)
@@ -308,18 +284,13 @@ def etu_chercher_stage(request):
         return render(request, 'etu_chercher_stage.html', context)
     if request.method == 'POST':
         erreur=""
-        print("request_method=",request.method)
         # Récupérer les valeurs stockées dans la session
         id_dom = request.session.get('id_dom')
-        print("id_dom= ",id_dom)
         id_sec = request.session.get('id_sec')
-        print("id_sec= ",id_sec)
         id_metier = request.session.get('id_metier')
-        print("id_metier= ",id_metier)
        
         if not id_dom or not id_sec or not id_metier :
             erreur ="Les 3 critères de recherche doivent être renseignés!"
-            print("erreur= ",erreur)
             context = {
                 'domaine' : id_dom,
                 'secteur': id_sec,
@@ -351,13 +322,8 @@ def etu_chercher_stage(request):
             }
             return render(request, 'etu_chercher_stage.html', context)
 
-        for offre in offres_filtrees:
-            offres_stage = offres_filtrees.select_related('id_ent', 'id_ent__id_user')
-            offres_diplome = offres_filtrees.select_related('id_dipl', 'id_dipl__id_dipl')
-            lib_diplomes = {offre.id_dipl.lib_dipl for offre in offres_stage}
-            noms_utilisateurs = {offre.id_ent.id_user.nom for offre in offres_stage}
-            email_utilisateurs = {offre.id_ent.id_user.email for offre in offres_stage}
-            desc_entreprises = {offre.id_ent.desc_ent for offre in offres_stage}
+       
+        offres_stage = offres_filtrees.select_related('id_dipl','id_ent__id_user').prefetch_related('id_ent__id_user')
         # préparation du id_user_etudiant, id_user_entreprise
         id_user_etu = request.session.get('id_user', None)
         context = {
@@ -369,11 +335,6 @@ def etu_chercher_stage(request):
                 'metiers' : Metiers.objects.filter(id_sec=id_sec),
                 'offres_filtrees':offres_filtrees,
                 'offres_stage' : offres_stage,
-                'noms_utilisateurs': noms_utilisateurs ,
-                'email_utilisateurs': email_utilisateurs ,
-                'desc_entreprises': desc_entreprises ,
-                'offres_diplome' : offres_diplome,
-                'lib_diplomes' : lib_diplomes,
                 'id_user_etu' : id_user_etu,
                 'erreur' : erreur
             }
@@ -384,7 +345,6 @@ def etu_postuler_stage(request):
     if request.method == 'GET':
         id_user_etu = request.GET.get('id_user_etu')
         id_offre = request.GET.get('id_offre')
-        print("id_offre= ",id_offre)
         utilisateur = get_object_or_404(Utilisateurs, id_user=id_user_etu)
         cv_et_lm_inexistant =0
         cv_ou_lm_inexistant =0
@@ -392,18 +352,12 @@ def etu_postuler_stage(request):
              etudiant = Etudiants.objects.get(id_user=id_user_etu)
              id_user_etu = etudiant.id_etu
              if etudiant.cv is None and etudiant.lm is None:
-                 print("les 2 champs sont nuls")
                  cv_et_lm_inexistant =1
-                 print("cv_et_lm_inexistant= ",cv_et_lm_inexistant)
-                 print("cv_ou_lm_inexistant= ",cv_ou_lm_inexistant)
                   # Fermer la fenêtre popup et rafraîchir la page parente
                  response = '<script>window.close(); window.opener.location.reload();</script>'
                  return HttpResponse(response)
              elif etudiant.cv is None or etudiant.lm is None:
-                  print("au moins un des champs est nul nul")
                   cv_ou_lm_inexistant =1
-                  print("cv_et_lm_inexistant= ",cv_et_lm_inexistant)
-                  print("cv_ou_lm_inexistant= ",cv_ou_lm_inexistant)
                  
         else:
             id_user_etu = ""
@@ -438,7 +392,6 @@ def etu_postuler_stage(request):
         id_offre = OffreStage.objects.get(id_offre=id_offre)
         id_user_etu = request.POST.get('id_etu')
         id_user_etu = Etudiants.objects.get(id_etu=id_user_etu)
-        print("id_user_etu= ",id_user_etu)
         id_statut = Statuts.objects.get(lib_statut='EA')
         candidature = Candidatures(id_offre=id_offre,date_cand=datetime.now(),id_etu=id_user_etu,id_statut=id_statut)
         candidature.save()
@@ -581,7 +534,6 @@ def telecharger_etu_cv(request,document_id):
 def etu_mes_stages(request):
     if request.method == 'GET':
         id_user = request.session.get('id_user', None)
-        print("id_user=",id_user)
         if not Etudiants.objects.filter(id_user=id_user).exists():
             messages.success(request, "Vous n'avez postulé à aucun stage!")
             return render(request, 'etu_mes_stages.html')
@@ -589,18 +541,11 @@ def etu_mes_stages(request):
         if not Candidatures.objects.filter(id_etu=etudiant.id_etu).exists():
             messages.success(request, "Vous n'avez postulé à aucun stage!")
             return render(request, 'etu_mes_stages.html')
-            #return render(request, 'etu_mes_stages.html')
         liste_candidatures=Candidatures.objects.filter(id_etu=etudiant.id_etu)
-        #offres_stage = OffreStage.objects.filter(id_statut=id_statut).select_related('entreprise__utilisateur')
-        #offres_stage = OffreStage.objects.filter(id_statut=id_statut)
-        #offres_stage = OffreStage.objects.filter(id_statut=id_statut).select_related('entreprise__utilisateur')
-        #offres_stage = OffreStage.objects.filter(id_statut=id_statut).select_related('id_ent', 'id_ent__id_user')
-        #candidatures = Candidatures.objects.all().select_related('id_offre')
         candidatures = Candidatures.objects.all().select_related('id_offre__id_ent__id_user')
         statuts = Candidatures.objects.all().select_related('id_offre__id_statut')
         liste_titres = {candidature.id_offre.titre_offre for candidature in candidatures}
         liste_localisations = {candidature.id_offre.localisation for candidature in candidatures}
-        #liste_users = {candidature.id_offre.id_ent.id_user for candidature in candidatures}
         liste_noms = {candidature.id_offre.id_ent.id_user.nom for candidature in candidatures}
         liste_statuts = {candidature.id_statut.lib_statut for candidature in statuts}   
        
@@ -676,8 +621,6 @@ def admin_creer_util(request):
     return render(request, 'admin_creer_util.html', {'erreur':erreur,'profils':profils})
 
 
-def admin_creer_util_succes(request):
-     return render(request, 'admin_creer_util_succes.html')
 
 def admin_modif_util(request):
     erreur = None
@@ -694,13 +637,9 @@ def admin_valider_offre(request):
         if not OffreStage.objects.filter(id_statut=id_statut).exists():
             messages.success(request, "Il n'existe aucune offre de stage à valider")
             return redirect('admin_modif_util')
-        #offres_stage = OffreStage.objects.filter(id_statut=id_statut)
-        #offres_stage = OffreStage.objects.filter(id_statut=id_statut).select_related('entreprise__utilisateur')
         offres_stage = OffreStage.objects.filter(id_statut=id_statut).select_related('id_ent', 'id_ent__id_user')
-        noms_utilisateurs = {offre.id_ent.id_user.nom for offre in offres_stage}
         context = {
             'offres_stage' : offres_stage,
-            'noms_utilisateurs': noms_utilisateurs ,
         }
         return render(request, 'admin_valider_offre.html',context)
     if request.method == 'POST':
@@ -716,8 +655,7 @@ def admin_valider_offre(request):
         messages.success(request, "Offres de stage validées avec succès!")
         return redirect('admin_modif_util')
                 
-                
-        #return render(request, 'admin_valider_offre.html')
+       
     
     return render(request, 'admin_valider_offre.html')
 
@@ -767,7 +705,6 @@ def admin_modifier(request):
         }
     if request.method == 'POST':
         id_user = request.POST.get('id_user')
-        #utilisateur = Utilisateurs.objects.get(id_user=id_user)
         # Récupérer les valeurs des champs du formulaire
         #le paramètre dans le get est le id du champs dans le formulaire html
         nom = request.POST.get('nom')
@@ -785,7 +722,6 @@ def admin_modifier(request):
 
          # Vérifier que tous les champs sont remplis
         if not nom or not email or not num_tel or not num_voie or not nom_voie or not code_postal or not commune or not mdp:
-            #messages.error(request, 'Veuillez remplir tous les champs.')
             erreur ="Veuillez remplir tous les champs."
             context = {
             'id_user': id_user,
@@ -803,11 +739,10 @@ def admin_modifier(request):
             'erreur' : erreur
             }
             return render(request, 'admin_modifier.html', context)
-            #return render(request, 'admin_modifier', context)
+            
 
         # Vérifier que les champs numériques contiennent uniquement des chiffres
         if not (num_tel.isdigit() and num_voie.isdigit() and code_postal.isdigit()):
-            #messages.error(request, 'Le numéro de téléphone, le numéro de voie et le code postal doivent contenir uniquement des chiffres.')
             erreur ="Le numéro de téléphone, le numéro de voie et le code postal doivent contenir uniquement des chiffres"
             context = {
             'id_user': id_user,
@@ -828,11 +763,10 @@ def admin_modifier(request):
             return render(request, 'admin_modifier.html', context)
 
         
-            #response = '<script>window.location.reload();</script>'
-            #return HttpResponse(response)
+           
         
         # Mettre à jour les valeurs de l'utilisateur
-        #id_user = request.POST.get('id_user')
+     
         utilisateur =Utilisateurs.objects.get(id_user=id_user)
         utilisateur.nom = nom
         utilisateur.prenom = prenom
