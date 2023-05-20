@@ -37,7 +37,6 @@ urlpatterns = [
     path('ent_consult_cand', views.ent_consult_cand, name='ent_consult_cand'),
     path('ent_mon_profil', views.ent_mon_profil, name='ent_mon_profil'),
     path('admin_creer_util', views.admin_creer_util, name='admin_creer_util'),
-    path('admin_creer_util_succes', views.admin_creer_util_succes, name='admin_creer_util_succes'),
     path('admin_modif_util', views.admin_modif_util, name='admin_modif_util'),
     path('admin_modifier', views.admin_modifier, name='admin_modifier'),
     path('admin_valider_offre', views.admin_valider_offre, name='admin_valider_offre'),
