@@ -1,0 +1,1 @@
+copy(select nom,prenom,email,password,num_tel,id_profil,id_statut,num_voie,nom_voie,code_postal,commune from stage_admin.utilisateurs where id_profil=3) to 'D:\Utilisateurs_Administrateurs.csv' with (FORMAT CSV,HEADER,ENCODING 'UTF8',DELIMITER ';');

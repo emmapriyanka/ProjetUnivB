@@ -1,0 +1,26 @@
+Copier un fichier csv dans la table entreprises:( avec les entêtes dans le fichier csv)
+Sous le compte "postgres" il faut être superuser pour avoir les droits de copie:
+
+- Pour charger le fichier Utilisateurs_Administrateurs.csv dans la table utilisateurs:
+
+\copy stage_admin.utilisateurs(nom,prenom,email,password,num_tel,id_profil,id_statut,num_voie,nom_voie,code_postal,commune) from 'Utilisateurs_Administrateurs.csv' with (FORMAT CSV,HEADER, ENCODING 'UTF8',DELIMITER ';');
+
+- Pour charger le fichier Utilisateurs_Etudiants.csv dans la table utilisateurs:
+
+\copy stage_admin.utilisateurs(nom,prenom,email,password,num_tel,id_profil,id_statut,num_voie,nom_voie,code_postal,commune) from 'Utilisateurs_Etudiants.csv' with (FORMAT CSV,HEADER, ENCODING 'UTF8',DELIMITER ';');
+
+- Pour charger le fichier Utilisateurs_Entreprises.csv dans la table utilisateurs:
+
+\copy stage_admin.utilisateurs(nom,email,password,num_tel,id_profil,id_statut,num_voie,nom_voie,code_postal,commune) from 'Utilisateurs_Entreprises.csv' with (FORMAT CSV,HEADER, ENCODING 'UTF8',DELIMITER ';');
+
+
+- Pour charger le fichier Entreprises.csv dans la table entreprises:
+
+\copy stage_admin.entreprises(id_user,desc_ent) from 'Entreprises.csv' with (FORMAT CSV,HEADER,ENCODING 'UTF8',DELIMITER ';');
+
+
+- Pour charger le fichier Offres_Stages.csv dans la table offre_stage:
+
+\copy stage_admin.offre_stage(id_dom,id_sec,id_metier,desc_stage,duree,date_debut,date_pub,id_ent,localisation,id_dipl,titre_offre,id_statut) from 'Offres_Stages.csv' with (FORMAT CSV,HEADER, ENCODING 'UTF8',DELIMITER ';');
+
+

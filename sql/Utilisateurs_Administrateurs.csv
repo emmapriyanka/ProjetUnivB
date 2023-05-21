@@ -1,0 +1,3 @@
+nom;prenom;email;password;num_tel;id_profil;id_statut;num_voie;nom_voie;code_postal;commune
+Lefort;Frédéric;lefort.frederic@bouygues.com;12345;0788974229;3;1;12;Rue du petit albi;95000;Cergy
+Auguste;Bastien;auguste.bastien@free.fr;12345;0781452429;3;1;1;Rue de la chapelle;95800;Courdimanche

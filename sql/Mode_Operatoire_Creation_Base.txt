@@ -1,0 +1,25 @@
+Mode opératoire d'installation et de création de la Base des offres de stages sur le serveur de Dev.
+====================================================================================================
+
+1) Installation du sgbd postgres(version 12) sur le serveur de Dev à partir du zip obtenu sur le site postgres.
+
+2) Installation du client Pgadmin4 graphique sur le serveur de Dev pour une gestion plus conviviale de la Base.
+
+3) Création d'un rôle postgres nommé "stage_admin"( 01-create_role.sql)
+
+4) Création de la Base "stageb" en UTF8 à partir de l'interface Pgadmin4
+
+5) Création d'un schéma nommé "stage_admin". Le rôle "stage_admin" sera
+propriétaire de la Base "stageb".La création d'un schéma stage_admin permettra de recevoir tous les objets créés par le
+rôle "stage_admin" dans ce schéma sinon par défaut ils iront dans le schéma "public"
+
+6) Création des tables avec les contraintes en utilisant l'outil graphique Pgadmin4
+
+7) Initialisation des tables de références avec le script: 03-init_tables_references.sql.
+il s'agit des tables diplomes, domaines, secteurs, statuts, metiers.
+
+8) A cette étape, il est utile de faire un backup de la Base à partir de Pgadmin4( obtention du fichier 02-create_BD_stageb.sql).
+On peut mettre à jour ce fichier au fûr et à mesure de l'avancement du développement lorsque des changements interviennent sur la structure.
+Ce fichier permettra de reconstruire la base sur un autre environnement sans passer par l'outil graphique Pgadmin4 en utilisant l'utilitaire
+en ligne psql par exemple.
+

@@ -1,0 +1,27 @@
+nom;email;password;num_tel;id_profil;id_statut;num_voie;nom_voie;code_postal;commune
+Educatio;jessica.leroy@educatio.com;12345;06 12 34 56 78;2;1;12;Rue de l'Education;75001;Paris
+Ecole Dynamique;marie.dupont@dyique.com;12345;06 98 76 54 32;2;1;10;Rue de boreale;44000;Nantes
+EduResearch;julie.martin@edure.com;12345;06 12 34 56 78;2;1;20;Rue de passepartout;69002;Lyon
+EducaResearch;thomas.rousseau@educa.com;12345;07 89 01 23 45;2;1;15;Avenue de l'Enseignement;31000;Toulouse
+HumanSocial;sophie.rou@humansocial.com;13245;0 6 78 90 12 34;2;1;10;Rue des Sciences Humaines 75005;75000;Paris
+SocioForm;laura.dupont@socioform.com;12345;07 12 34 56 78;2;1;5;Avenue des Sciences Sociales 69003;69002;Lyon
+SHS-Edu;educspe.humans@shs-edu.com;12345;07 89 01 23 45;2;1;25;Avenue des Humanités;75006;Paris
+Sciences Edu;educo.soci@sciencesedu.com;12345;05 67 89 01 23;2;1;10;rue boheme;31000;Toulouse
+Sciencesup;edusup@sciencesup.com;12345;04 56 78 90 12;2;1;25;Avenue de la Recherche;69007;Lyon
+SciHumResearch;contact@scihumresearch.com;12345;01 23 45 67 89;2;1;15;Rue des Sciences Humaines75005;75000;Paris
+ArchiPlusRecherche;jean@archiplusrecherche.com;12345;01 23 45 67 89;2;1;10;Rue des Bibliothèques;75013;Paris
+ArchiSauve;david.bruno@archisauve.com;12345;06 23 45 67 89;2;1;22;Avenue de la Conservation;69001;Lyon
+Psyclin;contact@psyclin.com;12345;01 23 45 67 89;2;1;12;Rue du Bien-être;75010;Paris
+Psyconfort;sante@psyconfort.com;12345;04 56 78 90 12;2;1;45;Avenue des Peupliers;69003;Lyon
+Solidarity;contact@solidarity.fr;12345;01 23 45 67 89;2;1;12;Rue de la Solidarité;75010;Paris
+Aide & Protection;contact@aideetprotection.com;12345;04 56 78 90 12;2;1;45;Rue de l'Aide;69003;Lyon
+OrientPro;contact@orientpro.fr;12345;01 23 45 67 89;2;1;8;Avenue de l'Orient;75012;Paris
+Conseil Carrière-Prosp;conseilcarriere@prosn.com;12345;04 56 78 90 12;2;1;25;Rue des Prospects;69006;Lyon
+GestionPlus;contact@gestionplus.com;12345;01 23 45 67 89;2;1;12;Rue prosper;92000;Nanterre
+TechSolutions;contact@techsolutions.com;12345;01 12 45 78 13;2;1;25;Rue du Progrès;95800;Cergy
+HealthComm; info@healthcomm.com;12345;01 23 54 76 56;2;1;123;Rue de la Santé;92000;Nanterre
+Danone;contact@danone.com;12345;07 54 27 82 05;2;1;17;boulevard Haussmann;75009;Paris
+Amazon;contact@amazon.com;12345;06 56 76 89 76;2;1;15;Avenue des Champs-Élysées;75008;Paris
+Engie;contact@engie.com;12345;07 45 67 64 98;2;1;1;Place Samuel de Champlain;92400;Courbevoie
+Medtronic;contact@medtronic.com;12345;06 54 37 89 01;2;1;64;Rue des Vanesses;92541;Montrouge
+Total;contact@total.com;12345;01 45 78 90 45;2;1;17;boulevard Haussmann;75009;Paris

@@ -1,0 +1,10 @@
+nom;prenom;email;password;num_tel;id_profil;id_statut;num_voie;nom_voie;code_postal;commune
+Albert;Eric;albert.eric@gmail.com;12345;0897654323;1;1;23;Rue Baudelaire;77000;Melun
+Albert;Camille;albert.camille@gmail.com;12345;0897654223;1;1;26;Rue Verlaine;92000;Nanterre
+Hourdine;malik;ourdine.malik@free.fr;12345;6478512395;1;2;25;rue mohammed cherifi;170000;tuiles
+shyamalan;jithendran;shyamalan.jithendran@yahoo.com;12345;121212121;1;1;12;rue du bûcheron;78000;Versailles
+hubert;jean;hubert.jean@free.fr;12345;4258741259;1;1;15;planete bleue;95800;cergy
+truchaud;sandrine;truchaud.sandrine@orange.com;12345;445454545;1;1;12;rue capitaine mémo;12000;Le Monastère
+Dupont;rené;dupont.rene@bouygues.com;12345;2121212121212;1;1;74;rue de la bonté;25000;Besançon
+Hugo;Victor;victor.hugo@free.fr;12345;01259687452;1;1;12;rue du petit albi;95000;cergy
+cadelis;elisa;cadelis@gmail.com;12345;1425874125;1;1;12;rue boreale;95800;menucourt
